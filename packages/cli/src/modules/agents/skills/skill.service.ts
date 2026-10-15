@@ -408,7 +408,7 @@ export class SkillService {
 	/** An agent can attach instance skills, the skills of its own project and its own agent skills. */
 	isAttachable(
 		skill: Pick<Skill, 'projectId' | 'agentId'>,
-		agent: { id: string; projectId: string },
+		agent: { id: string; projectId: string | null },
 	): boolean {
 		if (skill.agentId !== null) return skill.agentId === agent.id;
 		return skill.projectId === null || skill.projectId === agent.projectId;
@@ -421,7 +421,7 @@ export class SkillService {
 	 * must be attachable and must not clash by name.
 	 */
 	async checkRefs(
-		agent: { id: string; projectId: string },
+		agent: { id: string; projectId: string | null },
 		refs: SkillRef[],
 		ctx: OperationContext = {},
 	): Promise<SkillRef[]> {
